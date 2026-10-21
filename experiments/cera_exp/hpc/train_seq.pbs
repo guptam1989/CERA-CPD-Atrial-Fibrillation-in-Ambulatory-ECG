@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -N CERA_seq
+#PBS -q workq
+#PBS -l select=1:ncpus=8:ngpus=1:mem=32gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+
+# Deep sequence comparators (causal RR-LSTM, offline 1-D U-Net), same folds.
+set -eo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+exec > $R/logs/train_seq.log 2>&1
+export OMP_NUM_THREADS=8 MKL_NUM_THREADS=8
+[ -f pick_gpu.py ] && export CUDA_VISIBLE_DEVICES=$($PY pick_gpu.py)  # optional site-specific GPU picker
+echo "GPU $CUDA_VISIBLE_DEVICES start $(date)"
+for f in 0 1 2 3 4; do
+  for m in rr_lstm unet; do
+    for s in ${SEEDS:-0 1 2}; do
+      if [ ! -f $R/runs/main/fold$f/${m}_s$s/beats_ltafdb.npz ]; then
+        $PY -u -m experiments.cera_exp.seq_baselines --prep $R/prep/cpsc2021 --folds $R/prep/folds.json --fold $f \
+            --runs $R/runs/main --model $m --seed $s --external "$R/prep/afdb,$R/prep/ltafdb,$R/prep/nsrdb,$R/prep/mitdb"
+      fi
+      echo "fold $f $m seed $s done $(date)"
+    done
+  done
+done
+echo "end $(date)"

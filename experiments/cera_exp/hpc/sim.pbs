@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -N CERA_sim
+#PBS -q cpuq
+#PBS -l select=1:ncpus=8:mem=16gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+
+set -eo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+exec > $R/logs/sim.log 2>&1
+export OMP_NUM_THREADS=1
+mkdir -p $R/results/sim
+$PY -u -m experiments.cera_exp.simulate --out $R/results/sim/sim.json --reps ${REPS:-1000} --workers 8
+echo "end $(date)"

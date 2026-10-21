@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N CERA_external_data
+#PBS -q cpuq
+#PBS -l select=1:ncpus=4:mem=8gb:ngpus=0
+#PBS -l walltime=08:00:00
+#PBS -j oe
+
+set -euo pipefail
+cd ${CERA_ROOT:-$HOME/cera_cpd}
+exec >logs/acquisition_external_live.log 2>&1
+export OMP_NUM_THREADS=4
+PY=${CERA_PY:-python}
+"$PY" software/acquire_files.py --dataset afdb --output data/afdb --workers 8
+"$PY" software/acquire_files.py --dataset mitdb --output data/mitdb --workers 8
+"$PY" software/acquire_files.py --dataset nstdb --output data/nstdb --workers 8
+"$PY" software/acquire_files.py --dataset nsrdb --output data/nsrdb --workers 8
+"$PY" software/acquire_files.py --dataset ltafdb --output data/ltafdb --workers 8

@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N CERA_train
+#PBS -q workq
+#PBS -l select=1:ncpus=8:ngpus=1:mem=32gb
+#PBS -l walltime=48:00:00
+#PBS -j oe
+
+# qsub -v FOLDS="0 1 2 3 4",PLAN="full:0,1,2,3,4",EXTERNAL="...",TAG=main train.pbs
+set -eo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+TAG=${TAG:-main}
+exec > $R/logs/train_${TAG}.log 2>&1
+export OMP_NUM_THREADS=8 MKL_NUM_THREADS=8
+[ -f pick_gpu.py ] && export CUDA_VISIBLE_DEVICES=$($PY pick_gpu.py)  # optional site-specific GPU picker
+echo "host $(hostname) GPU $CUDA_VISIBLE_DEVICES start $(date) folds ${FOLDS} plan ${PLAN}"
+for f in ${FOLDS:-0}; do
+  $PY -u -m experiments.cera_exp.train --prep $R/prep/cpsc2021 --folds $R/prep/folds.json --fold $f \
+      --runs $R/runs/${RUNS:-main} --plan "${PLAN:-full:0}" --external "${EXTERNAL:-}" \
+      --external-variants "${EXT_VARIANTS:-full}" ${EPOCHS:+--epochs $EPOCHS}
+  echo "fold $f done $(date)"
+done
+echo "end $(date)"

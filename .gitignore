@@ -1,4 +1,7 @@
 build/
+manuscript/build/
+__pycache__/
+*.pyc
 *.aux
 *.log
 *.blg

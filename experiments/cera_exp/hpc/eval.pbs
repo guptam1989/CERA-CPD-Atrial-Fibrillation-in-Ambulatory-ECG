@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -N CERA_eval
+#PBS -q cpuq
+#PBS -l select=1:ncpus=8:mem=32gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+
+# qsub -v CONF=/path/conf.sh eval.pbs ; conf defines TASKS, RUNS, OUT, EXTERNAL, WORKERS, VALONLY
+set -eo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+source "$CONF"
+exec > $R/logs/eval_${OUT}_${TAG:-x}.log 2>&1
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+echo "start $(date) tasks ${TASKS}"
+$PY -u -m experiments.cera_exp.run_eval --prep $R/prep/cpsc2021 --folds $R/prep/folds.json \
+    --runs $R/runs/${RUNS} --out $R/results/${OUT} --tasks "${TASKS}" --external "${EXTERNAL:-}" \
+    --workers ${WORKERS:-8} ${VALONLY:+--val-only}
+echo "end $(date)"

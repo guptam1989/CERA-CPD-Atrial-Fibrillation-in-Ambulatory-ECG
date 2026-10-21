@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -N CERA_noise
+#PBS -q cpuq
+#PBS -l select=1:ncpus=8:mem=32gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+
+# NSTDB noise added to the pre-selected recording of every CPSC2021 patient.
+set -eo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+exec > $R/logs/prep_noise.log 2>&1
+export OMP_NUM_THREADS=1
+RECS=$($PY -c "import json;print(' '.join(sorted(set(json.load(open('$R/prep/folds.json'))['preselected_record'].values()))))")
+for kind in ${KINDS:-em ma bw}; do
+  for snr in ${SNRS:-12 6 0}; do
+    out=$R/prep/noise_${kind}_${snr}
+    if [ ! -f $out/index.json ]; then
+      $PY -m experiments.cera_exp.prep --dataset cpsc2021 --root $R/data/cpsc2021/files --out $out --workers 8 \
+          --records $RECS --noise "{\"kind\": \"$kind\", \"snr_db\": $snr, \"noise_root\": \"$R/data/nstdb\", \"seed\": 7}"
+    fi
+    echo "$kind $snr done $(date)"
+  done
+done
+# clean reference for the same records (identical pipeline without noise)
+if [ ! -f $R/prep/noise_clean/index.json ]; then
+  $PY -m experiments.cera_exp.prep --dataset cpsc2021 --root $R/data/cpsc2021/files --out $R/prep/noise_clean --workers 8 --records $RECS
+fi
+echo "end $(date)"

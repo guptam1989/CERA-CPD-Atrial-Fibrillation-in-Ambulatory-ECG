@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -N CERA_prep
+#PBS -q cpuq
+#PBS -l select=1:ncpus=8:mem=32gb
+#PBS -l walltime=12:00:00
+#PBS -j oe
+
+set -euo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+exec > $R/logs/prep_main.log 2>&1
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+echo "start $(date)"
+DATASETS=${DATASETS:-"cpsc2021 afdb mitdb"}
+for ds in $DATASETS; do
+  if [ "$ds" = cpsc2021 ]; then root=$R/data/cpsc2021/files; else root=$R/data/$ds; fi
+  if [ ! -f $R/prep/$ds/index.json ]; then
+    $PY -m experiments.cera_exp.prep --dataset $ds --root $root --out $R/prep/$ds --workers 8
+  fi
+  echo "$ds done $(date)"
+done
+if [ ! -f $R/prep/folds.json ]; then
+  $PY -m experiments.cera_exp.folds --index $R/prep/cpsc2021/index.json --out $R/prep/folds.json
+fi
+echo "end $(date)"

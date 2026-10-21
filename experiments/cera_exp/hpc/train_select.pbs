@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -N CERA_select
+#PBS -q workq
+#PBS -l select=1:ncpus=8:ngpus=1:mem=32gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+
+# Stage 1 of nested encoder selection: every candidate configuration, every
+# outer fold, seed 0. Selection uses only each fold's validation patients.
+set -eo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+exec > $R/logs/train_select.log 2>&1
+export OMP_NUM_THREADS=8 MKL_NUM_THREADS=8
+[ -f pick_gpu.py ] && export CUDA_VISIBLE_DEVICES=$($PY pick_gpu.py)  # optional site-specific GPU picker
+echo "GPU $CUDA_VISIBLE_DEVICES start $(date)"
+declare -A CFG
+CFG[base]='{}'
+CFG[aug]='{"augment": true}'
+CFG[augreg]='{"augment": true, "dropout": 0.3, "wd": 0.01}'
+CFG[augregema]='{"augment": true, "dropout": 0.3, "wd": 0.01, "ema": 0.999}'
+for f in 0 1 2 3 4; do
+  for c in base aug augreg augregema; do
+    $PY -u -m experiments.cera_exp.train --prep $R/prep/cpsc2021 --folds $R/prep/folds.json --fold $f \
+        --runs $R/runs/cand_$c --plan "full:0" --cfg "${CFG[$c]}"
+    echo "fold $f cand $c done $(date)"
+  done
+done
+echo "end $(date)"

@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -N CERA_post
+#PBS -q cpuq
+#PBS -l select=1:ncpus=8:mem=32gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+
+# Operating-curve sweeps and example traces after the full evaluation.
+set -eo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+exec > $R/logs/post.log 2>&1
+export OMP_NUM_THREADS=1
+T=""
+for f in 0 1 2 3 4; do for s in 0 1 2 3 4; do T="$T,$f:$s"; done; done
+$PY -u -m experiments.cera_exp.fa_sweep --prep $R/prep/cpsc2021 --folds $R/prep/folds.json --runs $R/runs/main \
+    --evals $R/results/main --tasks "${T#,}" --nsrdb $R/prep/nsrdb --mitdb $R/prep/mitdb --out $R/results/sweep --workers 8
+$PY -u -m experiments.cera_exp.trace_export --prep $R/prep/cpsc2021 --folds $R/prep/folds.json --runs $R/runs/main \
+    --evals $R/results/main --out $R/results/traces.json
+echo "end $(date)"

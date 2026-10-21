@@ -1,0 +1,36 @@
+#!/bin/bash
+#PBS -N CERA_main
+#PBS -q workq
+#PBS -l select=1:ncpus=8:ngpus=1:mem=32gb
+#PBS -l walltime=48:00:00
+#PBS -j oe
+
+# Stage 2: per-fold selected encoder configuration (nested selection on
+# validation patients). STAGE=A: full model, 5 seeds, all external exports.
+# STAGE=B: ablation variants, 3 seeds, exports needed for H3/H4.
+set -eo pipefail
+R=${CERA_ROOT:-$HOME/cera_cpd}
+PY=${CERA_PY:-python}
+cd $R/code
+STAGE=${STAGE:-A}
+exec > $R/logs/train_main_${STAGE}.log 2>&1
+export OMP_NUM_THREADS=8 MKL_NUM_THREADS=8
+[ -f pick_gpu.py ] && export CUDA_VISIBLE_DEVICES=$($PY pick_gpu.py)  # optional site-specific GPU picker
+echo "GPU $CUDA_VISIBLE_DEVICES stage $STAGE start $(date)"
+NOISE=$(ls -d $R/prep/noise_* | tr '\n' ',' | sed 's/,$//')
+for f in ${FOLDS:-0 1 2 3 4}; do
+  CFG=$($PY -m experiments.cera_exp.select_cfg --runs $R/runs --fold $f)
+  echo "fold $f cfg $CFG"
+  if [ "$STAGE" = A ]; then
+    $PY -u -m experiments.cera_exp.train --prep $R/prep/cpsc2021 --folds $R/prep/folds.json --fold $f \
+        --runs $R/runs/main --plan "full:0,1,2,3,4" --cfg "$CFG" --external-variants full \
+        --external "$R/prep/afdb,$R/prep/ltafdb,$R/prep/nsrdb,$R/prep/mitdb,$NOISE"
+  else
+    $PY -u -m experiments.cera_exp.train --prep $R/prep/cpsc2021 --folds $R/prep/folds.json --fold $f \
+        --runs $R/runs/main --cfg "$CFG" --external-variants equal_gate,no_ectopy \
+        --plan "no_atrial:0,1,2;no_rhythm:0,1,2;equal_gate:0,1,2;no_ectopy:0,1,2;no_matched:0,1,2;no_contrastive:0,1,2" \
+        --external "$R/prep/mitdb,$NOISE"
+  fi
+  echo "fold $f done $(date)"
+done
+echo "end $(date)"

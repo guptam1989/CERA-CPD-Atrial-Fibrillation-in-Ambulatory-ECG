@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -N CERA_CPSC_prepare
+#PBS -q cpuq
+#PBS -l select=1:ncpus=8:mem=24gb:ngpus=0
+#PBS -l walltime=24:00:00
+#PBS -j oe
+
+set -euo pipefail
+cd ${CERA_ROOT:-$HOME/cera_cpd}
+exec >logs/preparation_live.log 2>&1
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+PY=${CERA_PY:-python}
+"$PY" experiments/cluster_pipeline/build_manifests.py --data data/cpsc2021/files --output runs/splits
+"$PY" -m experiments.neural.prepare_manifest --manifest runs/splits/raw_preparation_manifest.json --output runs/prepared --roles test --computed-quality --workers 8
