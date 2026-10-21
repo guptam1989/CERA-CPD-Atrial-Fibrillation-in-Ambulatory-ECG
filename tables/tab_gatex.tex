@@ -1,0 +1,32 @@
+\begin{table*}[!htbp]
+\centering
+\caption{Secondary analysis of the certification of further proposers with a validated or fixed ($A_c=1121$) certificate. F1 is in \% and FA/h denotes false episodes per hour, and $^\ast$ marks a paired difference from the ungated proposer with $p<0.05$. No noise scores exist for the RR-LSTM (n/a). Bold marks the best value for each proposer.}
+\label{tab:gatex}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\fitwidth{%
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.3cm}cccccccc@{}}
+\toprule
+ & \multicolumn{3}{c}{CPSC2021 (CV)} & AFDB & LTAFDB & NSRDB & \multicolumn{2}{c}{Electrode motion 0\,dB}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-5}\cmidrule(lr){6-6}\cmidrule(lr){7-7}\cmidrule(lr){8-9}
+Proposer / certificate & $U$ & Ep.\ F1 & FA/h & FA/h & FA/h & FA/h & $U$ & FA/h\\
+\midrule
+\multicolumn{9}{@{}l}{\textit{Causal smoothing}}\\
+\quad ungated & \textbf{1.58} & \textbf{65.0} & 0.200 & 0.124 & 0.071 & 0.064 & 1.23 & 0.93\\
+\quad gated, validated $A_c$ & 1.51$^\ast$ & 62.3 & 0.145$^\ast$ & 0.096$^\ast$ & 0.051$^\ast$ & 0.063 & 1.29 & 0.69\\
+\quad gated, $A_c=1121$ & 1.37$^\ast$ & 56.6 & \textbf{0.057$^\ast$} & \textbf{0.011$^\ast$} & \textbf{0.010$^\ast$} & \textbf{0.023$^\ast$} & \textbf{1.33} & \textbf{0.08$^\ast$}\\
+\multicolumn{9}{@{}l}{\textit{Percentile threshold}}\\
+\quad ungated & \textbf{1.58} & 48.8 & 1.693 & 1.402 & 0.775 & 0.716 & 0.51 & 6.26\\
+\quad gated, validated $A_c$ & 1.30 & 50.9 & 0.359$^\ast$ & 0.295$^\ast$ & 0.160$^\ast$ & 0.220$^\ast$ & 1.00$^\ast$ & 1.09$^\ast$\\
+\quad gated, $A_c=1121$ & 1.33 & \textbf{54.7} & \textbf{0.103$^\ast$} & \textbf{0.039$^\ast$} & \textbf{0.027$^\ast$} & \textbf{0.073$^\ast$} & \textbf{1.21$^\ast$} & \textbf{0.14$^\ast$}\\
+\multicolumn{9}{@{}l}{\textit{BOCPD}}\\
+\quad ungated & \textbf{1.48} & \textbf{58.8} & 0.061 & 0.061 & 0.018 & 0.033 & 1.10 & 0.16\\
+\quad gated, validated $A_c$ & 1.43$^\ast$ & 58.3 & 0.057 & 0.043$^\ast$ & 0.015$^\ast$ & 0.031 & 1.11 & 0.15\\
+\quad gated, $A_c=1121$ & 1.36$^\ast$ & 56.6 & \textbf{0.033$^\ast$} & \textbf{0.013$^\ast$} & \textbf{0.005$^\ast$} & \textbf{0.011$^\ast$} & \textbf{1.24$^\ast$} & \textbf{0.06$^\ast$}\\
+\multicolumn{9}{@{}l}{\textit{RR-LSTM (separate model)}}\\
+\quad ungated & 1.18 & 52.8 & 0.601 & 0.087 & 0.087 & 0.066 & n/a & n/a\\
+\quad gated, validated $A_c$ & \textbf{1.35$^\ast$} & \textbf{57.0} & 0.199$^\ast$ & 0.037$^\ast$ & 0.034$^\ast$ & 0.028$^\ast$ & n/a & n/a\\
+\quad gated, $A_c=1121$ & 1.34$^\ast$ & 56.7 & \textbf{0.053$^\ast$} & \textbf{0.007$^\ast$} & \textbf{0.005$^\ast$} & \textbf{0.002$^\ast$} & n/a & n/a\\
+\bottomrule
+\end{tabular}}
+\end{table*}

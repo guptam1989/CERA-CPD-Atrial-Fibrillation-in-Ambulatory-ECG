@@ -1,0 +1,25 @@
+\begin{table}[!htbp]
+\centering
+\caption{Patient-level paired comparisons of \method{} (validated $A$) with each comparator on CPSC2021, giving the mean difference with 95\% bootstrap interval and Holm-adjusted sign-flip $p$ ($n=105$, last row unadjusted).}
+\label{tab:stats}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+ & \multicolumn{2}{c}{$\Delta U$} & \multicolumn{2}{c}{$\Delta$FA/h}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Comparator & $\Delta$ [95\% CI] & $p_{\mathrm{Holm}}$ & $\Delta$ [95\% CI] & $p_{\mathrm{Holm}}$ \\
+\midrule
+Causal smoothing & $-$0.21 [$-$0.32, $-$0.11] & $<$0.001 & $-$0.20 [$-$0.35, $-$0.08] & $<$0.001\\
+CUSUM & $-$0.26 [$-$0.40, $-$0.14] & $<$0.001 & $-$0.04 [$-$0.10, $-$0.00] & 0.148\\
+BOCPD & $-$0.12 [$-$0.20, $-$0.04] & 0.007 & $-$0.01 [$-$0.03, +0.01] & 0.372\\
+Percentile threshold & $-$0.09 [$-$0.32, +0.12] & 0.746 & $-$1.85 [$-$2.68, $-$1.11] & $<$0.001\\
+RR-LSTM & +0.13 [+0.04, +0.24] & 0.026 & $-$0.59 [$-$0.88, $-$0.34] & $<$0.001\\
+COSEn & +0.06 [$-$0.07, +0.19] & 0.746 & $-$2.13 [$-$3.10, $-$1.29] & $<$0.001\\
+RR Markov & +0.25 [+0.11, +0.41] & 0.008 & $-$2.29 [$-$3.05, $-$1.60] & $<$0.001\\
+CV of RR & +0.61 [+0.41, +0.82] & $<$0.001 & $-$3.05 [$-$3.84, $-$2.31] & $<$0.001\\
+\method{}, $\lambda^\star=0.1$/h & $-$0.01 [$-$0.03, +0.01] & 0.624 & $-$0.00 [$-$0.02, +0.01] & 0.520\\
+\bottomrule
+\end{tabular}}
+\end{table}

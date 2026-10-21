@@ -1,0 +1,55 @@
+\begin{table*}[!htbp]
+\centering
+\caption{Secondary analysis of wearer memory (validation-selected variants). F1 and boundary Se ($\pm1$ beat) are in \%, burden MAE in percentage points and FA/h denotes false episodes per hour. $^\ast$ and $^\dagger$ mark paired $p<0.05$ versus the primary configuration and CUSUM, respectively. Bold marks the best value.}
+\label{tab:memory}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\par\smallskip
+\textbf{(a) CPSC2021 cross-validation}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Method & $U$ & Ep.\ F1 & FA/h & Boundary Se & Burden MAE & CCC\\
+\midrule
+\multicolumn{7}{@{}l}{\textit{Primary configurations}}\\
+\quad Same encoder + CUSUM & 1.65\,$\pm$\,0.03 & 70.4\,$\pm$\,1.2 & 0.085\,$\pm$\,0.020 & 19.0\,$\pm$\,1.9 & \textbf{3.8\,$\pm$\,0.2} & 0.94\,$\pm$\,0.00\\
+\quad \method{}, validated $A$ & 1.31\,$\pm$\,0.02 & 54.8\,$\pm$\,0.6 & 0.069\,$\pm$\,0.018 & 0.8\,$\pm$\,0.2 & 7.6\,$\pm$\,0.3 & 0.85\,$\pm$\,0.02\\
+\quad \method{}-G, validated $A_c$ & 1.57\,$\pm$\,0.03 & 66.3\,$\pm$\,0.8 & 0.069\,$\pm$\,0.010 & 13.0\,$\pm$\,1.7 & 4.1\,$\pm$\,0.2 & \textbf{0.95\,$\pm$\,0.00}\\
+\quad \method{}-G, $A_c=1121$ & 1.37\,$\pm$\,0.01 & 57.0\,$\pm$\,0.2 & \textbf{0.043\,$\pm$\,0.006} & 2.1\,$\pm$\,0.2 & 6.8\,$\pm$\,0.2 & 0.91\,$\pm$\,0.02\\
+\multicolumn{7}{@{}l}{\textit{Wearer memory}}\\
+\quad \method{}-M, validated $\gamma$, $A$ & 1.44\,$\pm$\,0.02$^\ast$$^\dagger$ & 60.8\,$\pm$\,0.4 & 0.071\,$\pm$\,0.014 & 5.7\,$\pm$\,0.8 & 5.9\,$\pm$\,0.2 & 0.89\,$\pm$\,0.01\\
+\quad \method{}-MD, validated $\gamma$, $A$ & 1.47\,$\pm$\,0.02$^\ast$$^\dagger$ & 61.9\,$\pm$\,0.3 & 0.078\,$\pm$\,0.006$^\ast$ & 7.4\,$\pm$\,0.7 & 5.5\,$\pm$\,0.2 & 0.90\,$\pm$\,0.02\\
+\quad \method{}-GMD, validated $A_c$ & \textbf{1.66\,$\pm$\,0.02$^\ast$} & \textbf{70.9\,$\pm$\,1.1} & 0.082\,$\pm$\,0.021$^\ast$ & \textbf{19.8\,$\pm$\,1.3} & \textbf{3.8\,$\pm$\,0.2} & 0.94\,$\pm$\,0.00\\
+\quad \method{}-GMD, $A_c=1121$ & 1.57\,$\pm$\,0.02$^\ast$$^\dagger$ & 66.3\,$\pm$\,0.4 & 0.068\,$\pm$\,0.010$^\ast$$^\dagger$ & 12.5\,$\pm$\,0.3 & 4.4\,$\pm$\,0.2 & 0.94\,$\pm$\,0.02\\
+\multicolumn{7}{@{}l}{\textit{Ablations}}\\
+\quad Margin, no memory & 1.32\,$\pm$\,0.02 & 55.4\,$\pm$\,0.5 & 0.065\,$\pm$\,0.013 & 0.9\,$\pm$\,0.1 & 7.5\,$\pm$\,0.3 & 0.86\,$\pm$\,0.02\\
+\quad Margin and calibrator, no memory & 1.36\,$\pm$\,0.02$^\ast$ & 56.1\,$\pm$\,0.4 & 0.069\,$\pm$\,0.018 & 2.6\,$\pm$\,0.5 & 7.5\,$\pm$\,0.3 & 0.85\,$\pm$\,0.03\\
+\quad Wearer memory, no margin & 1.39\,$\pm$\,0.03 & 57.7\,$\pm$\,1.1 & 0.108\,$\pm$\,0.011$^\ast$ & 4.9\,$\pm$\,0.7 & 6.9\,$\pm$\,0.2 & 0.87\,$\pm$\,0.02\\
+\quad Memory within recordings & 1.32\,$\pm$\,0.02 & 55.8\,$\pm$\,0.5 & 0.063\,$\pm$\,0.022 & 1.1\,$\pm$\,0.4 & 7.4\,$\pm$\,0.4 & 0.86\,$\pm$\,0.02\\
+\quad \method{}-G, memory within recordings & 1.58\,$\pm$\,0.03 & 67.8\,$\pm$\,0.8 & 0.074\,$\pm$\,0.011$^\ast$ & 14.3\,$\pm$\,2.1 & 4.1\,$\pm$\,0.2 & \textbf{0.95\,$\pm$\,0.00}\\
+\bottomrule
+\end{tabular}}
+\par\smallskip
+\textbf{(b) Zero-shot cohorts, noise stress and end-to-end track}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+ & \multicolumn{2}{c}{AFDB} & LTAFDB & NSRDB & MIT-BIH non-AF & \multicolumn{2}{c}{Electrode motion 0\,dB} & End-to-end\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-4}\cmidrule(lr){5-5}\cmidrule(lr){6-6}\cmidrule(lr){7-8}\cmidrule(lr){9-9}
+Method & Ep.\ F1 & FA/h & FA/h & FA/h & FA/h & $U$ & FA/h & $U$\\
+\midrule
+\multicolumn{9}{@{}l}{\textit{Primary configurations}}\\
+\quad Same encoder + CUSUM & 57.4 & 0.060 & 0.018 & 0.028 & 0.20 & 1.25 & 0.31 & 1.51\\
+\quad \method{}, validated $A$ & 15.6 & 0.018 & 0.020 & 0.055 & 0.18 & 1.22 & \textbf{0.07} & 1.22\\
+\quad \method{}-G, validated $A_c$ & 60.4 & 0.031 & 0.011 & 0.018 & 0.17 & 1.31 & 0.19 & 1.45\\
+\quad \method{}-G, $A_c=1121$ & 24.7 & \textbf{0.006} & \textbf{0.005} & \textbf{0.011} & \textbf{0.12} & 1.28 & \textbf{0.07} & 1.28\\
+\multicolumn{9}{@{}l}{\textit{Wearer memory}}\\
+\quad \method{}-M, validated $\gamma$, $A$ & 55.8 & 0.026$^\dagger$ & 0.013$^\ast$ & 0.046 & 0.16 & 1.19 & \textbf{0.07$^\dagger$} & 1.34$^\ast$$^\dagger$\\
+\quad \method{}-MD, validated $\gamma$, $A$ & 59.0 & 0.040$^\ast$ & 0.016$^\ast$ & 0.045 & 0.20 & 1.23 & 0.08$^\dagger$ & 1.36$^\ast$$^\dagger$\\
+\quad \method{}-GMD, validated $A_c$ & 56.5 & 0.062$^\ast$ & 0.017$^\ast$ & 0.028$^\ast$ & 0.19 & 1.23$^\ast$ & 0.30$^\ast$ & \textbf{1.52$^\ast$}\\
+\quad \method{}-GMD, $A_c=1121$ & \textbf{61.9} & 0.035$^\ast$$^\dagger$ & 0.009$^\ast$$^\dagger$ & 0.019$^\dagger$ & 0.15$^\ast$$^\dagger$ & \textbf{1.32} & 0.08$^\dagger$ & 1.45$^\ast$$^\dagger$\\
+\bottomrule
+\end{tabular}}
+\end{table*}

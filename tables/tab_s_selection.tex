@@ -1,0 +1,16 @@
+\begin{table}[!htbp]
+\centering
+\caption{Validation fused BCE of each candidate in nested encoder selection (seed 0), with the selected candidate in bold.}
+\label{tab:s-selection}
+\footnotesize
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Candidate & Fold 1 & Fold 2 & Fold 3 & Fold 4 & Fold 5\\
+\midrule
+No augmentation & 0.258 & 0.225 & 0.068 & 0.247 & 0.311\\
+Augmentation & \textbf{0.133} & \textbf{0.132} & \textbf{0.049} & \textbf{0.135} & 0.152\\
+Aug.\ + dropout/WD & 0.150 & 0.138 & 0.050 & 0.139 & \textbf{0.144}\\
+Aug.\ + dropout/WD + EMA & 0.147 & 0.140 & 0.053 & 0.160 & 0.159\\
+\bottomrule
+\end{tabular}
+\end{table}

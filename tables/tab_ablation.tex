@@ -1,0 +1,30 @@
+\begin{table}[!htbp]
+\centering
+\caption{Ablations on CPSC2021 (mean\,$\pm$\,s.d.), with three seeds and the validated threshold for encoder ablations and $\lambda^\star=0.1$/h for detector ablations ($^\ast$). Ectopy FA/h is measured on non-AF recordings with $\ge$1\% ectopic beats. Bold marks the best value.}
+\label{tab:ablation}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Variant & $U$ & Bnd.\ Se$_{\pm1}$ & Ep.\ F1 & FA/h & Ectopy FA/h\\
+\midrule
+Full model (validated $A$) & 1.31\,$\pm$\,0.02 & 0.8\,$\pm$\,0.2 & 54.8\,$\pm$\,0.6 & \textbf{0.07\,$\pm$\,0.02} & \textbf{0.10\,$\pm$\,0.02}\\
+w/o atrial stream & 1.25\,$\pm$\,0.01 & 0.5\,$\pm$\,0.0 & 54.5\,$\pm$\,0.4 & 0.15\,$\pm$\,0.01 & 0.33\,$\pm$\,0.05\\
+w/o rhythm stream & 1.19\,$\pm$\,0.01 & 0.6\,$\pm$\,0.0 & 51.6\,$\pm$\,0.7 & 0.11\,$\pm$\,0.01 & 0.12\,$\pm$\,0.01\\
+Equal weights (no gate) & 1.32\,$\pm$\,0.02 & 0.9\,$\pm$\,0.1 & 55.0\,$\pm$\,0.6 & 0.08\,$\pm$\,0.01 & 0.13\,$\pm$\,0.02\\
+w/o ectopy-nuisance sampling & \textbf{1.35\,$\pm$\,0.03} & 1.1\,$\pm$\,0.4 & \textbf{56.1\,$\pm$\,0.5} & 0.08\,$\pm$\,0.01 & 0.15\,$\pm$\,0.03\\
+w/o patient-matched negatives & 1.31\,$\pm$\,0.02 & 0.8\,$\pm$\,0.1 & 55.1\,$\pm$\,0.8 & \textbf{0.07\,$\pm$\,0.01} & 0.11\,$\pm$\,0.02\\
+w/o contrastive loss & 1.31\,$\pm$\,0.01 & 0.9\,$\pm$\,0.2 & 55.2\,$\pm$\,0.4 & \textbf{0.07\,$\pm$\,0.01} & 0.11\,$\pm$\,0.04\\
+\midrule
+Full model, $\lambda^\star=0.1$/h (reference)$^\ast$ & 1.32\,$\pm$\,0.02 & 1.2\,$\pm$\,0.2 & 55.0\,$\pm$\,0.5 & 0.08\,$\pm$\,0.00 & 0.13\,$\pm$\,0.01\\
+w/o decision clipping$^\ast$ & 1.16\,$\pm$\,0.02 & 1.1\,$\pm$\,0.3 & 48.4\,$\pm$\,0.3 & 0.38\,$\pm$\,0.02 & 0.52\,$\pm$\,0.03\\
+Block-level boundary only$^\ast$ & 1.32\,$\pm$\,0.02 & 0.7\,$\pm$\,0.1 & 55.0\,$\pm$\,0.5 & 0.08\,$\pm$\,0.00 & 0.13\,$\pm$\,0.01\\
+Power calibrator, $\kappa=0.3^\ast$ & 1.33\,$\pm$\,0.02 & \textbf{2.1\,$\pm$\,0.2} & 54.9\,$\pm$\,0.5 & 0.09\,$\pm$\,0.01 & 0.18\,$\pm$\,0.02\\
+Bag restarted at $\hat k^\ast$ & 1.32\,$\pm$\,0.02 & 1.1\,$\pm$\,0.2 & 55.3\,$\pm$\,0.6 & 0.08\,$\pm$\,0.00 & 0.13\,$\pm$\,0.01\\
+Short-episode fallback$^\ast$ & 1.32\,$\pm$\,0.02 & 1.8\,$\pm$\,0.2 & 55.2\,$\pm$\,0.5 & 0.08\,$\pm$\,0.00 & 0.12\,$\pm$\,0.01\\
+Warm-up $W=2^\ast$ & 1.32\,$\pm$\,0.02 & 1.2\,$\pm$\,0.2 & 55.0\,$\pm$\,0.5 & 0.08\,$\pm$\,0.00 & 0.13\,$\pm$\,0.01\\
+Warm-up $W=8^\ast$ & 1.32\,$\pm$\,0.02 & 1.2\,$\pm$\,0.3 & 55.0\,$\pm$\,0.5 & 0.08\,$\pm$\,0.00 & 0.13\,$\pm$\,0.01\\
+\bottomrule
+\end{tabular}}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}[!htbp]
+\centering
+\caption{False episodes per hour on change-free and ectopy-rich recordings (mean\,$\pm$\,s.d.\ over locked models). Bold marks the best value.}
+\label{tab:controls}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Method & NSRDB (437\,h) & MIT-BIH non-AF (20\,h)\\
+\midrule
+COSEn & 2.75\,$\pm$\,1.31 & 4.96\,$\pm$\,1.61\\
+RR Markov & 0.70\,$\pm$\,0.49 & 1.98\,$\pm$\,1.49\\
+RR-LSTM & 0.07\,$\pm$\,0.06 & 0.59\,$\pm$\,0.45\\
+1-D U-Net$^\dagger$ & 0.42\,$\pm$\,0.88 & 0.85\,$\pm$\,0.59\\
+Causal smoothing & 0.06\,$\pm$\,0.08 & 0.65\,$\pm$\,0.65\\
+CUSUM & \textbf{0.03\,$\pm$\,0.03} & 0.20\,$\pm$\,0.15\\
+BOCPD & \textbf{0.03\,$\pm$\,0.03} & 0.23\,$\pm$\,0.16\\
+\method{}, $\lambda^\star=0.1$/h & 0.05\,$\pm$\,0.02 & \textbf{0.16\,$\pm$\,0.13}\\
+\method{}, validated $A$ & 0.05\,$\pm$\,0.07 & 0.18\,$\pm$\,0.17\\
+\method{} w/o ectopy sampling & n/a & 0.17\,$\pm$\,0.10\\
+\bottomrule
+\end{tabular}
+\end{table}

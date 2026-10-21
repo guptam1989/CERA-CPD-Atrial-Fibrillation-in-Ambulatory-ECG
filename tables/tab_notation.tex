@@ -1,0 +1,23 @@
+\begin{table}[!htbp]
+\centering
+\caption{Main notation.}
+\label{tab:notation}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\fitwidth{%
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.6cm}>{\raggedright\arraybackslash}p{4.7cm}>{\raggedright\arraybackslash}p{1.6cm}>{\raggedright\arraybackslash}p{4.7cm}@{}}
+\toprule
+Symbol & Meaning & Symbol & Meaning \\
+\midrule
+$f_s$, $L$ & native sampling frequency, waveform grid length ($L=64$ samples) & $\alpha_j$ & mode-dependent nonconformity score of block $j$ \\
+$r_n, \mathrm{RR}_n$ & time of R peak $n$, RR interval ending at beat $n$ & $p_j$, $\theta_j$ & online smoothed conformal p-value, tie-breaking uniform \\
+$s_n$, $m$ & rhythm state of beat $n$ (1 = AF), detector mode & $f$, $E_j$, $\beta$ & calibrator, e-value, betting fraction \\
+$c^{+}, c^{-}, \hat c$ & true onset, true offset, estimated boundary beat & $R_j$, $A$, $\tau$ & Shiryaev and Roberts statistic, alarm threshold, alarm block \\
+$q_n, q_{\min}$ & beat quality index and abstention threshold & $W$ & warm-up blocks after every reset \\
+$b$, $\mathcal{B}_j$ & block size (beats) and $j$-th block of accepted beats & $\eta$, $u$ & localisation tolerance, heuristic localisation spread (beats) \\
+$\bm{h}^{\mathrm r}_j$, $\bm{h}^{\mathrm a}_n$ & rhythm-stream (block) and atrial-stream (beat) embeddings & $\omega$ & localisation-based scale for burden residuals \\
+$\pi^{\mathrm r}_j, \pi^{\mathrm a}_j, \hat\pi_j$ & stream-wise and fused block AF probabilities & $\delta_{\mathrm R}$, $\delta$ & nominal R-peak latency (0.15\,s), burden miscoverage level (0.1) \\
+$\pi_n$, $g_j$ & beat-level AF probability (localisation), rate- and quality-aware fusion gate & $\hat B_o$, $C^o_{1-\delta}$ & estimated observed-time AF burden and its conformal interval \\
+\bottomrule
+\end{tabular}}
+\end{table}

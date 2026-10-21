@@ -1,0 +1,22 @@
+\begin{table}[!htbp]
+\centering
+\caption{Burden on the 105 pre-selected CPSC2021 test recordings (one per patient), giving mean absolute error and coverage/mean width (percentage points) of 90\% split-conformal intervals, normalised by the localisation scale ($\omega+\epsilon$) or unnormalised. Mean over seeds. Bold marks the lowest error and width.}
+\label{tab:burden}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+ & & \multicolumn{2}{c}{Normalised} & \multicolumn{2}{c}{Unnormalised}\\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Method & MAE & Cov. (\%) & Width & Cov. (\%) & Width\\
+\midrule
+Causal smoothing & 3.7 & 95.8 & 35.6 & 96.4 & 51.8\\
+CUSUM & \textbf{3.3} & 95.8 & \textbf{33.0} & 95.6 & \textbf{42.4}\\
+BOCPD & 8.1 & 93.3 & 58.5 & 93.1 & 61.8\\
+RR-LSTM & 5.1 & 94.3 & 53.0 & 94.3 & 53.0\\
+\method{}, $\lambda^\star=0.1$/h & 8.8 & 96.0 & 82.1 & 95.4 & 82.1\\
+\method{}, validated $A$ & 8.8 & 96.8 & 87.2 & 96.4 & 87.9\\
+\bottomrule
+\end{tabular}}
+\end{table}

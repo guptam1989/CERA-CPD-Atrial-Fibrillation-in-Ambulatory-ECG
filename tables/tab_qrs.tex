@@ -1,0 +1,47 @@
+\begin{table*}[!htbp]
+\centering
+\caption{End-to-end track with causal QRS detection, showing (a) detection accuracy and latency ($^\ddagger$largely automatic reference beats) and (b) delineation with locked settings, with CPSC2021 reference-peak values in parentheses. F1 is in \% and FA/h denotes false episodes per hour. Bold marks the best value in (b).}
+\label{tab:qrs}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\par\smallskip
+\textbf{(a) QRS detection}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}lrrccc@{}}
+\toprule
+Recordings & Records & Reference beats & Se (\%) & PPV (\%) & Latency (s)\\
+\midrule
+CPSC2021 & 1425 & 2\,122\,819 & 99.48 & 97.94 & 0.24\\
+AFDB$^\ddagger$ & 23 & 1\,130\,172 & 97.58 & 97.25 & 0.24\\
+LTAFDB & 84 & 8\,995\,973 & 99.69 & 95.85 & 0.24\\
+NSRDB & 18 & 1\,729\,629 & 99.91 & 99.30 & 0.24\\
+MIT-BIH Arrhythmia & 48 & 109\,494 & 99.85 & 99.14 & 0.23\\
+CPSC2021 pre-selected (clean) & 105 & 556\,146 & 99.43 & 97.92 & 0.24\\
+\quad electrode motion 12\,dB & 105 & 556\,146 & 99.43 & 97.07 & 0.24\\
+\quad electrode motion 6\,dB & 105 & 556\,146 & 99.42 & 88.76 & 0.24\\
+\quad electrode motion 0\,dB & 105 & 556\,146 & 98.10 & 69.34 & 0.24\\
+\quad muscle artefact 0\,dB & 105 & 556\,146 & 98.31 & 75.10 & 0.24\\
+\quad baseline wander 0\,dB & 105 & 556\,146 & 99.43 & 97.69 & 0.24\\
+\bottomrule
+\end{tabular}}
+\par\smallskip
+\textbf{(b) Delineation on detected beats}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.3cm}ccccccc@{}}
+\toprule
+ & \multicolumn{3}{c}{CPSC2021 (CV)} & AFDB & NSRDB & \multicolumn{2}{c}{Electrode motion 0\,dB}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-5}\cmidrule(lr){6-6}\cmidrule(lr){7-8}
+Method & $U$ & Ep.\ F1 & FA/h & Ep.\ F1 & FA/h & Ep.\ F1 & FA/h\\
+\midrule
+COSEn & 1.25 (1.31) & 39.0 (39.7) & 2.276 (2.010) & 33.7 & 2.822 & 9.2 & 5.97\\
+Causal smoothing & 1.46 (1.58) & 60.1 (65.0) & 0.267 (0.200) & 53.6 & 0.038 & 15.3 & 2.25\\
+Percentile threshold & 1.39 (1.58) & 38.5 (48.8) & 1.868 (1.693) & 20.5 & 0.326 & 1.0 & 13.34\\
+CUSUM & \textbf{1.51 (1.65)} & \textbf{66.7 (70.4)} & 0.115 (0.085) & 55.6 & 0.008 & 28.8 & 0.46\\
+BOCPD & 1.35 (1.48) & 55.2 (58.8) & 0.086 (0.061) & 43.1 & 0.018 & 39.9 & 0.16\\
+\method{}, validated $A$ & 1.22 (1.31) & 53.1 (54.8) & \textbf{0.065 (0.069)} & 15.9 & 0.043 & \textbf{46.5} & \textbf{0.09}\\
+\method{}-G, validated & 1.45 (1.57) & 63.6 (66.3) & 0.075 (0.069) & \textbf{58.3} & \textbf{0.006} & 33.6 & 0.40\\
+\bottomrule
+\end{tabular}}
+\end{table*}

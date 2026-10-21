@@ -1,0 +1,7 @@
+Highlights
+
+• Conformal e-detection gives patient-adaptive alarm budgets for AF episode detection
+• Gating CUSUM with conformal evidence reduced false AF episodes on every cohort
+• Wearer memory lifted the conformal detector's AFDB episode F1 from 16% to 59%
+• With causal QRS detection, CERA-CPD kept <0.1 false episodes/h in 0 dB motion noise
+• Split-conformal burden intervals bound quality-rejected time without imputation

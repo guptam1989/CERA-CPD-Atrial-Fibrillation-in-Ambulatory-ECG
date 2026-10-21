@@ -1,0 +1,122 @@
+\begin{table*}[!htbp]
+\centering
+\caption{EC57-style metrics (\%), namely AF-time Se/PPV/Sp on labelled time, any-overlap episode Se/PPV, Se for episodes of at least 30\,s and their false episodes per hour (FA$_{30}$/h), with burden agreement given as Bland and Altman bias [95\% limits] (percentage points) and Lin's CCC. $^\dagger$Offline. Bold marks the best online value.}
+\label{tab:ec57}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\par\smallskip
+\textbf{(a) CPSC2021 cross-validation}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.3cm}ccccccc@{}}
+\toprule
+Method & AF-time Se & AF-time PPV & AF-time Sp & Ep.\ Se & Ep.\ PPV & Se$_{\ge30\,\mathrm{s}}$ & FA$_{30}$/h\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Rhythm features}}\\
+CV of RR \cite{tateno2001} & 77.8 & 63.2 & 76.3 & 86.7 & 57.1 & 89.1 & 2.068\\
+COSEn \cite{lake2011cosen} & \textbf{97.8} & 90.2 & 94.4 & 69.3 & 49.6 & 98.2 & 1.041\\
+RR Markov \cite{moody1983afdb} & 94.9 & 78.7 & 86.6 & 70.3 & 53.7 & 95.4 & 1.562\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Deep sequence}}\\
+RR-LSTM, causal \cite{faust2018} & 95.6\,$\pm$\,0.3 & 92.5\,$\pm$\,0.7 & 95.9\,$\pm$\,0.4 & 63.3\,$\pm$\,4.6 & 69.6\,$\pm$\,2.9 & 89.8\,$\pm$\,1.2 & 0.450\,$\pm$\,0.043\\
+1-D U-Net, offline$^\dagger$ \cite{wen2022paf} & 95.0\,$\pm$\,1.0 & 87.9\,$\pm$\,3.7 & 93.1\,$\pm$\,2.4 & 59.0\,$\pm$\,2.1 & 66.4\,$\pm$\,0.9 & 91.6\,$\pm$\,1.9 & 0.616\,$\pm$\,0.027\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Same encoder}}\\
+Causal smoothing & 97.5\,$\pm$\,0.3 & 96.2\,$\pm$\,0.5 & 98.0\,$\pm$\,0.3 & 73.1\,$\pm$\,2.6 & 88.3\,$\pm$\,1.7 & 97.2\,$\pm$\,0.4 & 0.127\,$\pm$\,0.022\\
+Percentile threshold & 96.8\,$\pm$\,0.2 & 95.4\,$\pm$\,0.1 & 97.6\,$\pm$\,0.1 & \textbf{88.9\,$\pm$\,0.6} & 64.8\,$\pm$\,0.9 & \textbf{99.1\,$\pm$\,0.1} & 0.355\,$\pm$\,0.023\\
+CUSUM \cite{page1954} & 96.8\,$\pm$\,0.5 & \textbf{97.4\,$\pm$\,0.2} & \textbf{98.6\,$\pm$\,0.1} & 72.0\,$\pm$\,2.1 & 95.0\,$\pm$\,1.1 & 95.6\,$\pm$\,0.5 & 0.068\,$\pm$\,0.005\\
+BOCPD \cite{adams2007bocpd} & 87.9\,$\pm$\,1.0 & 93.3\,$\pm$\,0.7 & 96.7\,$\pm$\,0.4 & 67.9\,$\pm$\,1.8 & \textbf{95.8\,$\pm$\,0.9} & 89.8\,$\pm$\,0.7 & \textbf{0.060\,$\pm$\,0.014}\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Proposed}}\\
+\method{}, validated $A$ & 87.9\,$\pm$\,1.5 & 93.1\,$\pm$\,1.3 & 96.6\,$\pm$\,0.7 & 59.6\,$\pm$\,2.1 & 94.2\,$\pm$\,1.4 & 81.5\,$\pm$\,1.0 & 0.069\,$\pm$\,0.018\\
+\method{}-G, validated & 96.8\,$\pm$\,0.5 & 97.3\,$\pm$\,0.2 & \textbf{98.6\,$\pm$\,0.1} & 67.0\,$\pm$\,2.2 & 95.4\,$\pm$\,0.6 & 94.6\,$\pm$\,0.7 & 0.066\,$\pm$\,0.008\\
+\bottomrule
+\end{tabular}}
+\par\smallskip
+\textbf{(b) Burden agreement}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.3cm}cccc@{}}
+\toprule
+ & \multicolumn{2}{c}{CPSC2021 (pre-selected recordings)} & \multicolumn{2}{c}{AFDB}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Method & Bias [95\% LoA] & CCC & Bias [95\% LoA] & CCC\\
+\midrule
+CV of RR \cite{tateno2001} & +7.9 [$-$75.9, 91.6] & 0.51 & $-$6.8 [$-$53.7, 40.1] & 0.69\\
+COSEn \cite{lake2011cosen} & +1.9 [$-$28.4, 32.3] & 0.94 & $-$2.2 [$-$20.1, 15.6] & 0.96\\
+RR Markov \cite{moody1983afdb} & +6.2 [$-$41.8, 54.2] & 0.84 & $-$2.2 [$-$30.1, 25.7] & 0.89\\
+RR-LSTM, causal \cite{faust2018} & +0.4 [$-$29.9, 30.7] & 0.94 & $-$8.5 [$-$32.2, 15.2] & 0.85\\
+1-D U-Net, offline$^\dagger$ \cite{wen2022paf} & +1.4 [$-$34.9, 37.8] & 0.92 & $-$3.1 [$-$17.6, 11.4] & 0.97\\
+Causal smoothing & +1.2 [$-$30.9, 33.3] & 0.94 & \textbf{$-$1.7 [$-$12.6, 9.1]} & \textbf{0.98}\\
+Percentile threshold & +0.6 [$-$28.9, 30.0] & \textbf{0.95} & $-$2.3 [$-$13.9, 9.4] & \textbf{0.98}\\
+CUSUM \cite{page1954} & \textbf{+0.2 [$-$29.9, 30.2]} & 0.94 & $-$5.1 [$-$30.8, 20.6] & 0.90\\
+BOCPD \cite{adams2007bocpd} & $-$1.3 [$-$46.1, 43.5] & 0.87 & $-$12.5 [$-$66.6, 41.6] & 0.56\\
+\method{}, validated $A$ & $-$3.5 [$-$52.0, 45.0] & 0.85 & $-$7.9 [$-$57.8, 42.1] & 0.64\\
+\method{}-G, validated & +0.4 [$-$29.4, 30.1] & \textbf{0.95} & $-$5.8 [$-$38.8, 27.2] & 0.85\\
+\bottomrule
+\end{tabular}}
+\end{table*}
+
+\begin{table*}[!htbp]
+\ContinuedFloat
+\centering
+\caption[]{Standard AF-detector metrics (continued) for zero-shot external testing.}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\par\smallskip
+\textbf{(c) AFDB, zero-shot (23 recordings)}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.3cm}ccccccc@{}}
+\toprule
+Method & AF-time Se & AF-time PPV & AF-time Sp & Ep.\ Se & Ep.\ PPV & Se$_{\ge30\,\mathrm{s}}$ & FA$_{30}$/h\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Rhythm features}}\\
+CV of RR \cite{tateno2001} & 70.6 & 85.0 & 91.4 & 90.2 & 67.2 & 92.9 & 1.187\\
+COSEn \cite{lake2011cosen} & 91.9 & 97.4 & 98.3 & 83.5 & 79.8 & 97.1 & 0.254\\
+RR Markov \cite{moody1983afdb} & 87.3 & 92.9 & 95.0 & 84.7 & 72.2 & 95.0 & 0.739\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Deep sequence}}\\
+RR-LSTM, causal \cite{faust2018} & 77.6 & 98.3 & 99.1 & 61.0 & 89.7 & 72.9 & 0.063\\
+1-D U-Net, offline$^\dagger$ \cite{wen2022paf} & 90.6 & 98.1 & 98.8 & 75.8 & 89.5 & 88.9 & 0.104\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Same encoder}}\\
+Causal smoothing & \textbf{94.3} & 98.5 & 99.0 & 79.9 & 93.6 & 94.2 & 0.041\\
+Percentile threshold & 92.6 & 98.1 & 98.8 & \textbf{91.7} & 78.8 & \textbf{97.8} & 0.149\\
+CUSUM \cite{page1954} & 86.8 & \textbf{99.3} & \textbf{99.6} & 72.2 & 97.0 & 86.5 & 0.020\\
+BOCPD \cite{adams2007bocpd} & 58.4 & 84.7 & 92.8 & 63.0 & 93.3 & 69.7 & 0.056\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Proposed}}\\
+\method{}, validated $A$ & 67.7 & 84.2 & 91.3 & 50.3 & 94.7 & 56.0 & \textbf{0.018}\\
+\method{}-G, validated & 84.9 & 99.2 & 99.5 & 70.0 & \textbf{97.9} & 84.5 & \textbf{0.018}\\
+\bottomrule
+\end{tabular}}
+\par\smallskip
+\textbf{(d) LTAFDB, zero-shot (84 recordings)}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.3cm}ccccccc@{}}
+\toprule
+Method & AF-time Se & AF-time PPV & AF-time Sp & Ep.\ Se & Ep.\ PPV & Se$_{\ge30\,\mathrm{s}}$ & FA$_{30}$/h\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Rhythm features}}\\
+CV of RR \cite{tateno2001} & 68.3 & 82.6 & 84.1 & \textbf{87.5} & 82.3 & 90.8 & 0.732\\
+COSEn \cite{lake2011cosen} & 96.2 & 96.2 & 95.6 & 69.0 & 62.9 & 95.7 & 0.377\\
+RR Markov \cite{moody1983afdb} & 91.2 & 93.1 & 91.8 & 79.0 & 73.0 & \textbf{96.4} & 0.500\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Deep sequence}}\\
+RR-LSTM, causal \cite{faust2018} & 86.7 & 98.6 & 98.6 & 47.8 & 87.6 & 74.2 & 0.070\\
+1-D U-Net, offline$^\dagger$ \cite{wen2022paf} & 90.5 & 97.8 & 97.7 & 55.8 & 88.2 & 85.1 & 0.113\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Same encoder}}\\
+Causal smoothing & \textbf{96.3} & 98.2 & 97.9 & 62.8 & 93.1 & 91.5 & 0.039\\
+Percentile threshold & 95.8 & 98.0 & 97.8 & 71.2 & 83.1 & 96.0 & 0.165\\
+CUSUM \cite{page1954} & 94.0 & \textbf{98.8} & \textbf{98.7} & 54.7 & 97.5 & 84.4 & 0.013\\
+BOCPD \cite{adams2007bocpd} & 77.3 & 93.4 & 93.6 & 50.2 & 94.5 & 67.0 & 0.017\\
+\midrule
+\multicolumn{8}{@{}l}{\textit{Proposed}}\\
+\method{}, validated $A$ & 79.1 & 87.6 & 87.1 & 55.2 & 89.2 & 64.6 & 0.020\\
+\method{}-G, validated & 94.0 & \textbf{98.8} & \textbf{98.7} & 54.0 & \textbf{97.9} & 83.6 & \textbf{0.009}\\
+\bottomrule
+\end{tabular}}
+\end{table*}

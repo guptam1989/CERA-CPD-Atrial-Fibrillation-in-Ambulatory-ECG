@@ -1,0 +1,63 @@
+\begin{table*}[!htbp]
+\centering
+\caption{Noise stress on the 105 pre-selected CPSC2021 recordings, given as episode F1 (\%) / false episodes per hour (mean over seeds, each recording scored only by its own fold's models). Bold marks the best F1 and FA/h.}
+\label{tab:s-noise}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\par\smallskip
+\textbf{(a) Clean ECG}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}p{5cm}c@{}}
+\toprule
+Method & Clean\\
+\midrule
+\method{} & 45.9/\textbf{0.04}\\
+\method{}, equal weights & 47.1/0.06\\
+CUSUM & \textbf{73.0}/0.09\\
+Smoothing & 61.4/0.11\\
+\bottomrule
+\end{tabular}}
+\par\smallskip
+\textbf{(b) Electrode motion (em)}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}p{5cm}ccc@{}}
+\toprule
+Method & 12\,dB & 6\,dB & 0\,dB\\
+\midrule
+\method{} & 49.3/\textbf{0.07} & 50.3/0.08 & \textbf{51.8}/\textbf{0.07}\\
+\method{}, equal weights & 49.6/\textbf{0.07} & 49.6/\textbf{0.07} & 51.3/\textbf{0.07}\\
+CUSUM & \textbf{66.1}/0.14 & \textbf{55.3}/0.23 & 44.1/0.31\\
+Smoothing & 49.8/0.40 & 41.3/0.71 & 35.1/0.93\\
+\bottomrule
+\end{tabular}}
+\par\smallskip
+\textbf{(c) Muscle artefact (ma)}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}p{5cm}ccc@{}}
+\toprule
+Method & 12\,dB & 6\,dB & 0\,dB\\
+\midrule
+\method{} & 47.7/\textbf{0.03} & 49.8/\textbf{0.03} & 52.2/\textbf{0.03}\\
+\method{}, equal weights & 47.6/0.04 & 50.1/0.04 & 51.2/0.04\\
+CUSUM & \textbf{68.2}/0.08 & \textbf{62.2}/0.05 & \textbf{54.9}/0.04\\
+Smoothing & 55.1/0.15 & 53.5/0.15 & 45.8/0.12\\
+\bottomrule
+\end{tabular}}
+\par\smallskip
+\textbf{(d) Baseline wander (bw)}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}p{5cm}ccc@{}}
+\toprule
+Method & 12\,dB & 6\,dB & 0\,dB\\
+\midrule
+\method{} & 45.8/\textbf{0.04} & 48.3/\textbf{0.04} & 51.0/\textbf{0.04}\\
+\method{}, equal weights & 48.4/0.05 & 51.4/0.05 & 51.6/\textbf{0.04}\\
+CUSUM & \textbf{73.0}/0.09 & \textbf{72.1}/0.09 & \textbf{70.0}/0.08\\
+Smoothing & 60.1/0.11 & 59.5/0.12 & 58.6/0.14\\
+\bottomrule
+\end{tabular}}
+\end{table*}

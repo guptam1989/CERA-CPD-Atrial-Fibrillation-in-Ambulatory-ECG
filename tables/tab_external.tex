@@ -1,0 +1,45 @@
+\begin{table*}[!htbp]
+\centering
+\caption{Zero-shot external testing. Bnd.\ Se is the boundary sensitivity within $\pm2$ beats (\%), FA/h the false episodes per hour, Burden the mean absolute error (percentage points) and Cov./width the coverage/width (\%) of 90\% intervals, bounded for incomplete labels. $^\dagger$Offline. Bold marks the best online value.}
+\label{tab:external}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\par\smallskip
+\textbf{(a) AFDB (23 recordings, 234\,h)}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Method & Ep.\ F1 & Bnd.\ Se & FA/h & Burden & Cov./width\\
+\midrule
+COSEn & 33.1\,$\pm$\,8.8 & 23.9\,$\pm$\,7.3 & 0.63\,$\pm$\,0.42 & 3.8\,$\pm$\,1.6 & 96/52\\
+RR Markov & 26.5\,$\pm$\,8.7 & 13.1\,$\pm$\,5.7 & 1.01\,$\pm$\,0.69 & 7.4\,$\pm$\,2.6 & 96/73\\
+RR-LSTM & 39.9\,$\pm$\,20.2 & 2.1\,$\pm$\,1.5 & 0.09\,$\pm$\,0.05 & 9.0\,$\pm$\,11.5 & 96/62\\
+1-D U-Net$^\dagger$ & 44.1\,$\pm$\,9.3 & 22.5\,$\pm$\,9.5 & 0.17\,$\pm$\,0.11 & 3.9\,$\pm$\,2.0 & 97/71\\
+Causal smoothing & 55.3\,$\pm$\,9.7 & 35.0\,$\pm$\,9.3 & 0.12\,$\pm$\,0.20 & \textbf{2.5\,$\pm$\,0.9} & 99/48\\
+CUSUM & \textbf{57.4\,$\pm$\,12.7} & \textbf{37.0\,$\pm$\,8.4} & 0.06\,$\pm$\,0.09 & 5.3\,$\pm$\,2.7 & 94/44\\
+BOCPD & 43.5\,$\pm$\,5.9 & 26.3\,$\pm$\,6.6 & 0.06\,$\pm$\,0.04 & 17.5\,$\pm$\,3.5 & 89/72\\
+\method{}, $\lambda^\star=0.1$/h & 16.3\,$\pm$\,1.5 & 5.3\,$\pm$\,0.7 & \textbf{0.02\,$\pm$\,0.01} & 17.9\,$\pm$\,3.4 & 95/91\\
+\method{}, validated $A$ & 15.6\,$\pm$\,1.6 & 5.0\,$\pm$\,1.4 & \textbf{0.02\,$\pm$\,0.03} & 15.9\,$\pm$\,3.8 & 97/95\\
+\bottomrule
+\end{tabular}}
+\par\smallskip
+\textbf{(b) LTAFDB (84 recordings, 1961\,h)}
+\par\smallskip
+\fitwidth{%
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Method & Ep.\ F1 & Bnd.\ Se & FA/h & Burden & Cov./width\\
+\midrule
+COSEn & 9.2\,$\pm$\,0.6 & 3.3\,$\pm$\,0.4 & 0.81\,$\pm$\,0.42 & 3.3\,$\pm$\,0.8 & [93.1, 94.0]/46\\
+RR Markov & 6.9\,$\pm$\,1.7 & 2.1\,$\pm$\,0.6 & 0.62\,$\pm$\,0.22 & 7.5\,$\pm$\,3.5 & [93.6, 94.0]/71\\
+RR-LSTM & 7.3\,$\pm$\,3.4 & 0.6\,$\pm$\,0.4 & 0.09\,$\pm$\,0.06 & 7.5\,$\pm$\,6.8 & [94.5, 95.2]/57\\
+1-D U-Net$^\dagger$ & 10.0\,$\pm$\,2.5 & 3.1\,$\pm$\,1.7 & 0.14\,$\pm$\,0.07 & 5.7\,$\pm$\,2.0 & [96.7, 97.3]/66\\
+Causal smoothing & 10.9\,$\pm$\,3.4 & \textbf{4.6\,$\pm$\,2.7} & 0.07\,$\pm$\,0.11 & \textbf{2.7\,$\pm$\,1.4} & [96.6, 97.7]/40\\
+CUSUM & \textbf{11.8\,$\pm$\,3.7} & 4.4\,$\pm$\,2.0 & \textbf{0.02\,$\pm$\,0.02} & 3.7\,$\pm$\,1.7 & [94.5, 95.5]/36\\
+BOCPD & 5.9\,$\pm$\,2.5 & 2.5\,$\pm$\,1.1 & \textbf{0.02\,$\pm$\,0.01} & 13.4\,$\pm$\,2.9 & [90.4, 91.4]/63\\
+\method{}, $\lambda^\star=0.1$/h & 2.7\,$\pm$\,0.2 & 0.8\,$\pm$\,0.1 & \textbf{0.02\,$\pm$\,0.01} & 16.1\,$\pm$\,2.5 & [96.8, 96.9]/88\\
+\method{}, validated $A$ & 2.4\,$\pm$\,0.5 & 0.7\,$\pm$\,0.3 & \textbf{0.02\,$\pm$\,0.03} & 15.9\,$\pm$\,3.7 & [98.7, 98.8]/93\\
+\bottomrule
+\end{tabular}}
+\end{table*}
